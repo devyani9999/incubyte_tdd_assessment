@@ -59,5 +59,13 @@ describe StringCalculator do
         expect { string_calculator.add("1,-2,-3,4") }.to raise_error "Negative numbers not allowed: -2,-3"
       end
     end
+
+    context "for numbers bigger than 1000 should be ignored" do
+      it "only returns the sum of numbers <= 1000" do
+        expect(string_calculator.add("2,1001")).to eq(2)
+        expect(string_calculator.add("2,4,5,2000")).to eq(11)
+        expect(string_calculator.add("2,10,1")).to eq(13)
+      end
+    end
   end
 end
