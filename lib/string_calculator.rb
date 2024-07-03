@@ -37,7 +37,11 @@ class StringCalculator
   end
 
   def custom_delimiter(input)
-    input[-1]
+    if input.include?("[") && input.include?("]")
+      input[/(?<=\[).*?(?=\])/]
+    else
+      input[-1]
+    end
   end
 
   def throw_exception_for_negatives
