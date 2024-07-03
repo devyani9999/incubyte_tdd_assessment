@@ -34,5 +34,14 @@ describe StringCalculator do
         expect(StringCalculator.add("15,4,8,9")).to eq(36)
       end
     end
+
+    context "for multiple numbers with , and '\\n'" do
+      it "returns the sum of all the numbers" do
+        expect(StringCalculator.add("1\n2,3")).to eq(6)
+        expect(StringCalculator.add("5,2\n5\n6")).to eq(18)
+        expect(StringCalculator.add("10,3\n2,3")).to eq(18)
+        expect(StringCalculator.add("15\n4\n8\n9")).to eq(36)
+      end
+    end
   end
 end

@@ -5,7 +5,7 @@ class StringCalculator
     if input.empty?
       return 0
     else
-      input = input.split(",").map(&:to_i)
+      input = input.split(/[,\n]/).map(&:to_i)
       return input.sum
     end
   end
