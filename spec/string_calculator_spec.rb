@@ -26,5 +26,13 @@ describe StringCalculator do
       end
     end
 
+    context "for multiple numbers" do
+      it "returns the sum of all the numbers" do
+        expect(StringCalculator.add("1,5,6,7")).to eq(19)
+        expect(StringCalculator.add("5,2,5,6")).to eq(18)
+        expect(StringCalculator.add("10,3,2,3")).to eq(18)
+        expect(StringCalculator.add("15,4,8,9")).to eq(36)
+      end
+    end
   end
 end
