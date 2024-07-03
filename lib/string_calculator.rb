@@ -7,6 +7,7 @@ class StringCalculator
       0
     else
       sanitized_numbers = get_sanitized_numbers(input)
+      throw_exception_for_negatives(sanitized_numbers)
       sanitized_numbers.sum
     end
   end
@@ -36,5 +37,12 @@ class StringCalculator
 
   def custom_delimiter(input)
     input[-1]
+  end
+
+  def throw_exception_for_negatives(numbers)
+    if numbers.any?(&:negative?)
+      negatives = numbers.find_all(&:negative?)
+      raise Exception.new("Negative numbers not allowed: #{negatives.join(",")}")
+    end
   end
 end

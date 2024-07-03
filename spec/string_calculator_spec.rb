@@ -1,7 +1,7 @@
 require "string_calculator"
 
 describe StringCalculator do
-  describe ".add" do
+  describe "#add" do
     let(:string_calculator) { StringCalculator.new }
 
     context "for empty string" do
@@ -53,5 +53,11 @@ describe StringCalculator do
       end
     end
 
+    context "for a negative number will throw an exception" do
+      it "throws an exception with negative numbers" do
+        expect { string_calculator.add("1,-2,3") }.to raise_error "Negative numbers not allowed: -2"
+        expect { string_calculator.add("1,-2,-3,4") }.to raise_error "Negative numbers not allowed: -2,-3"
+      end
+    end
   end
 end
