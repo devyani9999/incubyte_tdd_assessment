@@ -5,7 +5,12 @@ class StringCalculator
     if input.empty?
       return 0
     else
-      input.to_i
+      input = input.split(",").map(&:to_i)
+      if input.size > 1
+        return input[0] + input[1]
+      else
+        return input[0]
+      end
     end
   end
 end
