@@ -6,10 +6,10 @@ class StringCalculator
     if input.empty?
       0
     else
-      sanitized_numbers = get_sanitized_numbers(input)
-      throw_exception_for_negatives(sanitized_numbers)
-      sanitized_numbers = reject_numbers_bigger_than_1000(sanitized_numbers)
-      sanitized_numbers.sum
+      @sanitized_numbers = get_sanitized_numbers(input)
+      throw_exception_for_negatives
+      reject_numbers_bigger_than_1000
+      @sanitized_numbers.sum
     end
   end
 
@@ -40,14 +40,14 @@ class StringCalculator
     input[-1]
   end
 
-  def throw_exception_for_negatives(numbers)
-    if numbers.any?(&:negative?)
-      negatives = numbers.find_all(&:negative?)
+  def throw_exception_for_negatives
+    if @sanitized_numbers.any?(&:negative?)
+      negatives = @sanitized_numbers.find_all(&:negative?)
       raise Exception.new("Negative numbers not allowed: #{negatives.join(",")}")
     end
   end
 
-  def reject_numbers_bigger_than_1000(numbers)
-    numbers.reject { |num| num > 1000 }
+  def reject_numbers_bigger_than_1000
+    @sanitized_numbers.reject! { |num| num > 1000 }
   end
 end
