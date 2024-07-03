@@ -32,13 +32,14 @@ class StringCalculator
 
   def custom_numbers(input)
     input = input.split("\n")
-    delimiter = custom_delimiter(input[0])
-    input[1].split(delimiter)
+    delimiters = custom_delimiter(input[0])
+    input[1].split(delimiters)
   end
 
   def custom_delimiter(input)
     if input.include?("[") && input.include?("]")
-      input[/(?<=\[).*?(?=\])/]
+      delimiters = input.scan(/(?<=\[).+?(?=\])/)
+      /[#{delimiters.join(",")}]/ #return in format /[d1,d2]/
     else
       input[-1]
     end

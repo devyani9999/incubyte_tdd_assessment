@@ -74,5 +74,12 @@ describe StringCalculator do
         expect(string_calculator.add("//[##]\n2##4##5##6")).to eq(17)
       end
     end
+
+    context "for multiple numbers allow multiple delimiters, format: \\n: '//[delim1][delim2]\\n[numbers…]'" do
+      it "returns the sum of all the numbers" do
+        expect(string_calculator.add("//[*][%]\n1*2%3")).to eq(6)
+        expect(string_calculator.add("//[##][**]\n2**4##5**6")).to eq(17)
+      end
+    end
   end
 end
