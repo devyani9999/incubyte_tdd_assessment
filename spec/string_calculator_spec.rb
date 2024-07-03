@@ -43,5 +43,12 @@ describe StringCalculator do
         expect(StringCalculator.add("15\n4\n8\n9")).to eq(36)
       end
     end
+
+    context "for multiple numbers with delimiter and numbers separated by \\n: '//[delimiter]\\n[numbers…]'" do
+      it "returns the sum of all the numbers" do
+        expect(StringCalculator.add("//;\n1;2")).to eq(3)
+        expect(StringCalculator.add("//:\n2:3:4")).to eq(9)
+      end
+    end
   end
 end
