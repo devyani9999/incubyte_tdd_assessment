@@ -6,40 +6,51 @@ class StringCalculator
     if input.empty?
       0
     else
-      @sanitized_numbers = get_sanitized_numbers(input)
+      @sanitized_numbers, @delimiters = get_sanitized_numbers_and_delimiters(input)
       throw_exception_for_negatives
       reject_numbers_bigger_than_1000
-      @sanitized_numbers.sum
+      calculate_result
     end
   end
 
   private
 
+  PRODUCT_DELIMITER = "*"
+
+  def calculate_result
+    if @delimiters == PRODUCT_DELIMITER
+      @sanitized_numbers.inject(&:*)
+    else
+      @sanitized_numbers.sum
+    end
+  end
+
   def custom_delimiter?(input)
     input.start_with?("//")
   end
 
-  def get_sanitized_numbers(input)
+  def get_sanitized_numbers_and_delimiters(input)
     delimiters = /[,\n]/
     if custom_delimiter?(input)
-      numbers = custom_numbers(input)
+      numbers, delimiters = custom_numbers_and_delimiters(input)
     else
       numbers = input.split(delimiters)
     end
 
-    numbers.map(&:to_i)
+    [numbers.map(&:to_i), delimiters]
   end
 
-  def custom_numbers(input)
+  def custom_numbers_and_delimiters(input)
     input = input.split("\n")
     delimiters = custom_delimiter(input[0])
-    input[1].split(delimiters)
+
+    [input[1].split(delimiters), delimiters]
   end
 
   def custom_delimiter(input)
     if input.include?("[") && input.include?("]")
       delimiters = input.scan(/(?<=\[).+?(?=\])/)
-      /[#{delimiters.join(",")}]/ #return in format /[d1,d2]/
+      /[#{delimiters.join(",")}]/ # return in format /[d1,d2]/
     else
       input[-1]
     end

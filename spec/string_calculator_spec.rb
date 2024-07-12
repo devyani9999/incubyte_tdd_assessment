@@ -81,5 +81,12 @@ describe StringCalculator do
         expect(string_calculator.add("//[##][**]\n2**4##5**6")).to eq(17)
       end
     end
+
+    context "for multiple numbers with delimiter '*' and numbers separated by \\n: '//[delimiter]\\n[numbers…]'" do
+      it "returns the product of all the numbers" do
+        expect(string_calculator.add("//*\n1*2")).to eq(2)
+        expect(string_calculator.add("//*\n2*3*4")).to eq(24)
+      end
+    end
   end
 end
